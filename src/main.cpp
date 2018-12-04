@@ -17,6 +17,8 @@
 
 //function definition
 float get_measure_from(int digitalport);
+void sort(float a[], float size);
+
 
 //declare ros nodehandler, message and publisher
 ros::NodeHandle nh;
@@ -61,21 +63,23 @@ void loop()
   float distance_sonar_ten = get_measure_from(tenth_sonar_sensor);
 
   //add sonar values to message object and publish message
-  float ech[10] = {distance_sonar_one ,distance_sonar_two, distance_sonar_three,
-                 distance_sonar_four, distance_sonar_five, distance_sonar_six,
-                 distance_sonar_seven, distance_sonar_eight, distance_sonar_nine,
-                 distance_sonar_ten};
+  float ech[10] = {1.0, 2.0, 4.8, 7.0, 6.7, 3.8, 9.0, 0.1, 8.9, 6.0};
+
+  //float ech[10] = {distance_sonar_one ,distance_sonar_two, distance_sonar_three,
+  //               distance_sonar_four, distance_sonar_five, distance_sonar_six,
+  //               distance_sonar_seven, distance_sonar_eight, distance_sonar_nine,
+  //               distance_sonar_ten};               
   
-  int i;
-  for ( i = 0; i < 10; i++ )
+  sort(ech,10); //Pass in the values and the size.
+
+  
 	    message.header.stamp = nh.now();
-      message.range = ech[i];
+      message.range = ech[0];
       message.radiation_type = sensor_msgs::Range::ULTRASOUND;
       message.header.frame_id =  frameid;
       message.field_of_view = 0.01;
       sonar.publish(&message);
       nh.spinOnce();
-
 //  delay(10);
 }
 
@@ -105,4 +109,16 @@ float get_measure_from(int digitalport)
 
   //convert to centimetres and return the value
   return float(pulseduration / 29);
+}
+
+void sort(float a[], float size) {
+    for(int i=0; i<(size-1); i++) {
+        for(int o=0; o<(size-(i+1)); o++) {
+                if(a[o] > a[o+1]) {
+                    int t = a[o];
+                    a[o] = a[o+1];
+                    a[o+1] = t;
+                }
+        }
+    }
 }
