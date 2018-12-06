@@ -31,7 +31,7 @@ topicMessage = ""
 # Init serial components
 socket = serial.Serial()
 socket.baudrate = 9600
-socket.port = '/dev/ttyACM0'
+socket.port = '/dev/willy_sonar'
 socket.timeout = 1
 socket.open()
 
