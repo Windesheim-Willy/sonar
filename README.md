@@ -8,4 +8,5 @@ For more information, check out the wiki about the sonar [Wiki](https://windeshe
 
 Install:
 
-sudo git clone https://github.com/Windesheim-Willy/sonar.git willy
+cd ~/catkin_workspace/src/
+sudo git clone https://github.com/Windesheim-Willy/sonar.git sonar
