@@ -1,2 +1,2 @@
 #!/bin/bash
-/src/node/python sonar-read.py
+python src/node/sonar-read.py
