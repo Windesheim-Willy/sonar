@@ -1,5 +1,5 @@
 #!/bin/bash
-DAEMON=/home/ubuntu/catkin_ws/src/sonar/src/node/python sonar-read.py
+DAEMON=/home/ubuntu/catkin_ws/src/sonar/src/node/start_sonar.sh
 NAME=sensor_sonar
 ROSCORE_LOG=/var/log/sensor_sonar.log
 ROSCORE_ERR=/var/log/sensor_sonar.err
