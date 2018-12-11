@@ -1,2 +1,2 @@
 #!/bin/bash
-python sensor-read.py
+python sonar-read.py
