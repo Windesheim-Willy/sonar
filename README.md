@@ -10,3 +10,10 @@ Install:
 
 cd ~/catkin_workspace/src/
 sudo git clone https://github.com/Windesheim-Willy/sonar.git sonar
+
+
+sudo nano /etc/udev/rules.d/99-usb-serial.rules
+
+KERNEL=="ttyACM*", ATTRS{idVendor}=="2a03", SYMLINK+="willy_sonar"
+
+udevadm control --reload-rules
