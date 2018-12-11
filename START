@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+start)
+  ;;
+stop)
+  ;;
+restart)
+  $0 stop
+  $0 start
+  ;;
+status)
+  if [ -e /var/run/sonar.pid ]; then
+    echo sonar is running, pid=`cat /var/run/sonar.pid`
+  else
+    echo sonar is NOT running
+    exit 1
+  fi
+  ;;
+*)
+  echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0
