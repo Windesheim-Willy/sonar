@@ -60,6 +60,7 @@ def PostOnTopic(frameid, Distance):
 while not rospy.is_shutdown(): 
     topicMessage = socket.readline()
     topicMessage = topicMessage.rstrip()
+    print(topicMessage)
 
     if(re.match(r'd+\|\d+\|\d+', topicMessage)):
         print(topicMessage)
