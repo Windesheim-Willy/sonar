@@ -52,7 +52,7 @@ def PostOnTopic(frameid, Distance):
 	message.range = float(Distance) / 100
 	pubTopicInstance.publish(message)
 	print(message)
-    print(Distance)
+        # print(Distance)
 
 
 # Continous loop for publishing serial data
