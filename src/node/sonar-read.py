@@ -4,6 +4,7 @@ import rospy
 import time
 from std_msgs.msg import String, Int32
 from sensor_msgs.msg import Range
+import re
 
 ############## Methods #############
 
@@ -57,10 +58,12 @@ def PostOnTopic(frameid, Distance):
 
 # Continous loop for publishing serial data
 while not rospy.is_shutdown(): 
-    topicMessage = socket.readline()
-    topicMessage = topicMessage.rstrip()
+    if re.match(r"/d+\|\d+\|\d+", topicMessage)
+
+        topicMessage = socket.readline()
+        topicMessage = topicMessage.rstrip()
     
-    print(topicMessage)
-    PostOnTopic("/front",float(topicMessage.split("|")[0]))
-    PostOnTopic("/backRight",float(topicMessage.split("|")[1]))
-    PostOnTopic("/backLeft",float(topicMessage.split("|")[2]))
+        print(topicMessage)
+        PostOnTopic("/front",float(topicMessage.split(",")[0]))
+        PostOnTopic("/backRight",float(topicMessage.split(",")[1]))
+        PostOnTopic("/backLeft",float(topicMessage.split(",")[2]))
