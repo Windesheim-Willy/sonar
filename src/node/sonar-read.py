@@ -26,7 +26,7 @@ rospy.init_node('sonar')
 pubTopicInstance = rospy.Publisher(pubTopicName, Range ,queue_size=25)
 
 # Init default values
-topicMessage = ""
+topicMessage = tuple()
 TopicDistance = tuple()
 
 # Init serial components
