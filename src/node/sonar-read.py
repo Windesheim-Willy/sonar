@@ -61,7 +61,7 @@ while not rospy.is_shutdown():
      topicMessage = socket.readline()
      topicMessage = topicMessage.rstrip()
 
-    if (re.match(r'd+\|\d+\|\d+', topicMessage)):
+    if(re.match(r'd+\|\d+\|\d+', topicMessage)):
         print(topicMessage)
         PostOnTopic("/front",float(topicMessage.split("|")[0]))
         PostOnTopic("/backRight",float(topicMessage.split("|")[1]))
