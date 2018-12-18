@@ -38,7 +38,7 @@ socket.open()
 
 
 # Function for publish on topic
-def PostOnTopic(frameid, Distance)
+def PostOnTopic(frameid, Distance):
  
     message = Range()
     if(RepresentsFloat(Distance)):
@@ -61,5 +61,5 @@ while not rospy.is_shutdown():
     topicMessage = topicMessage.rstrip()
 
     PostOnTopic("/front",float(topicMessage.split("|")[0]))
-	PostOnTopic("/backRight",float(topicMessage.split("|")[1]))
-	PostOnTopic("/backLeft",float(topicMessage.split("|")[2]))
+    PostOnTopic("/backRight",float(topicMessage.split("|")[1]))
+    PostOnTopic("/backLeft",float(topicMessage.split("|")[2]))
