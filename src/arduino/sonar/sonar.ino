@@ -73,6 +73,8 @@ int GetDistance(int triggerPin, int echoPin)
   distance = duration * 0.034 / 2;
 
   return distance;
+  
+  sleep(50)
 }
 
 int GetMinNumber(int distances[])
