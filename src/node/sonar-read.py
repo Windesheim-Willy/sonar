@@ -53,14 +53,14 @@ def PostOnTopic(frameid, Distance):
 	message.range = float(Distance) / 100
 	pubTopicInstance.publish(message)
 	print(message)
-        print(Distance)
+        #print(Distance)
 
 
 # Continous loop for publishing serial data
 while not rospy.is_shutdown(): 
     topicMessage = socket.readline()
     topicMessage = topicMessage.rstrip()
-    print(topicMessage)
+    #print(topicMessage)
 
     if(re.search(r"\d+\|\d+\|\d+", topicMessage)):
         print(topicMessage)
