@@ -9,9 +9,18 @@ const int echoRight = 8;
 const int triggerCenter = 9;
 const int echoCenter = 10;
 
+//Back Right
+const int triggerBackRight = 11;
+const int echoBackRight = 12;
+
+//Back Left
+const int triggerBackLeft = 3;
+const int echoBackLeft = 4;
+
 // defines variables
 long duration;
 int distance;
+
 
 void setup()
 {
@@ -24,6 +33,12 @@ void setup()
   pinMode(triggerCenter, OUTPUT);
   pinMode(echoCenter, INPUT);
 
+  pinMode(triggerBackRight, OUTPUT);
+  pinMode(echoBackRight, INPUT);
+
+  pinMode(triggerBackLeft, OUTPUT);
+  pinMode(echoBackLeft, INPUT);
+
   Serial.begin(9600);
 }
 
@@ -33,9 +48,19 @@ void loop()
   distances[0] = GetDistance(triggerLeft, echoLeft);
   distances[1] = GetDistance(triggerCenter, echoCenter);
   distances[2] = GetDistance(triggerRight, echoRight);
+  
 
-  Serial.println(GetMinNumber(distances));
+  Serial.print(GetMinNumber(distances));
+  Serial.print('|');
+  Serial.print(GetDistance(triggerBackRight,echoBackRight));
+  Serial.print('|');
+  Serial.print(GetDistance(triggerBackLeft,echoBackLeft));
+  Serial.print("\r\n");
+
+//  delay(500);
 }
+
+
 
 int GetDistance(int triggerPin, int echoPin)
 {
@@ -49,6 +74,8 @@ int GetDistance(int triggerPin, int echoPin)
   duration = pulseIn(echoPin, HIGH);
 
   distance = duration * 0.034 / 2;
+
+  delay(50);
 
   return distance;
 }
