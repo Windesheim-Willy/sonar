@@ -14,7 +14,7 @@ const int triggerBackRight = 11;
 const int echoBackRight = 12;
 
 //Back Left
-  const int triggerBackLeft = 3;
+const int triggerBackLeft = 3;
 const int echoBackLeft = 4;
 
 // defines variables
@@ -54,7 +54,10 @@ void loop()
   Serial.print('|');
   Serial.print(GetDistance(triggerBackRight,echoBackRight));
   Serial.print('|');
-  Serial.println(GetDistance(triggerBackLeft,echoBackLeft));
+  Serial.print(GetDistance(triggerBackLeft,echoBackLeft));
+  Serial.print("\r\n");
+
+//  delay(500);
 }
 
 
@@ -72,9 +75,9 @@ int GetDistance(int triggerPin, int echoPin)
 
   distance = duration * 0.034 / 2;
 
+  delay(50);
+
   return distance;
-  
-  sleep(50)
 }
 
 int GetMinNumber(int distances[])
