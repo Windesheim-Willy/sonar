@@ -58,7 +58,7 @@ def PostOnTopic(frameid, Distance):
 
 # Continous loop for publishing serial data
 while not rospy.is_shutdown(): 
-    if re.match(r"/d+\|\d+\|\d+", topicMessage)
+    if re.match(r"/d+\|\d+\|\d+", topicMessage):
 
         topicMessage = socket.readline()
         topicMessage = topicMessage.rstrip()
