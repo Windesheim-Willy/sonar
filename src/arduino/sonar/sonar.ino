@@ -1,95 +1,69 @@
+/*  SonarR2
+ *  This code reads out 8 sonars sensors, and sends the distance [cm] over serial to the Raspberry Pi
+ *  Electrically it triggers al the sensors with one pin, but it reads them out individually
+ * Last updated: 8-5-2019
+ */
 
-// define pins
-const int triggerLeft = 5;
-const int echoLeft = 6;
+int trigPin = 13;    // Trigger
 
-const int triggerRight = 7;
-const int echoRight = 8;
-
-const int triggerCenter = 9;
-const int echoCenter = 10;
-
-//Back Right
-const int triggerBackRight = 11;
-const int echoBackRight = 12;
-
-//Back Left
-const int triggerBackLeft = 3;
-const int echoBackLeft = 4;
-
-// defines variables
-long duration;
-int distance;
-
-
-void setup()
-{
-  pinMode(triggerLeft, OUTPUT);
-  pinMode(echoLeft, INPUT);
-
-  pinMode(triggerRight, OUTPUT);
-  pinMode(echoRight, INPUT);
-
-  pinMode(triggerCenter, OUTPUT);
-  pinMode(echoCenter, INPUT);
-
-  pinMode(triggerBackRight, OUTPUT);
-  pinMode(echoBackRight, INPUT);
-
-  pinMode(triggerBackLeft, OUTPUT);
-  pinMode(echoBackLeft, INPUT);
-
-  Serial.begin(9600);
-}
-
-void loop()
-{
-  int distances[3];
-  distances[0] = GetDistance(triggerLeft, echoLeft);
-  distances[1] = GetDistance(triggerCenter, echoCenter);
-  distances[2] = GetDistance(triggerRight, echoRight);
+void setup() {
+  //Serial Port begin
+  Serial.begin (9600);
   
+  //Define inputs and outputs
+  pinMode(trigPin, OUTPUT);
 
-  Serial.print(GetMinNumber(distances));
-  Serial.print('|');
-  Serial.print(GetDistance(triggerBackRight,echoBackRight));
-  Serial.print('|');
-  Serial.print(GetDistance(triggerBackLeft,echoBackLeft));
-  Serial.print("\r\n");
-
-//  delay(500);
-}
-
-
-
-int GetDistance(int triggerPin, int echoPin)
-{
-  digitalWrite(triggerPin, LOW);
-  delayMicroseconds(2);
-
-  digitalWrite(triggerPin, HIGH);
-  delayMicroseconds(10);
-
-  digitalWrite(triggerPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-
-  distance = duration * 0.034 / 2;
-
-  delay(50);
-
-  return distance;
-}
-
-int GetMinNumber(int distances[])
-{
-  int result = distances[0];
-  for (int i = 0; i < 3; i++)
+  for(int i = 4; i < 12; i++)
   {
-    if (distances[i] < result)
+    pinMode(i, INPUT_PULLUP);
+  }
+}
+
+int GetDistance(int pin)
+{
+  //delays on trigger pin as required for the HC-SR-04
+  delay(10);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  //pinMode(echoPin, INPUT);
+  long Duration = pulseIn(pin, HIGH, 12000);
+
+  int Distance = 0;
+  
+  if (Duration > 0)
+  {
+    //Calculation of distance in cm, using speed of sound (0.0343) and 2 for the fact that the sound travels double the distance.
+    Distance = Duration * 0.0343 / 2;
+  }
+  else
+  {
+    //limit the distance
+    Distance = 200;
+  }
+
+  if (Distance > 200) 
+  {
+    //limit the distance
+    Distance = 200;
+  }
+  
+  return Distance;
+    
+}
+
+void loop() {
+
+  //send data over serial
+  for(int i = 4; i < 12; i++)
+  {
+    Serial.print(GetDistance(i));
+    if (i < 11)
     {
-      result = distances[i];
+      Serial.print("|");
     }
   }
-  return result;
+  
+  Serial.print("\r\n");
 }
-
